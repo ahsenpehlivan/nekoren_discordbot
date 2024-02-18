@@ -1,6 +1,8 @@
 import discord
 from discord.ext.commands import Bot
 from functions import *
+from utils import *
+
 
 botum = Bot(command_prefix="777 ", intents=discord.Intents.all())
 game = Game()
@@ -16,6 +18,7 @@ async def on_member_join(member):
     print(f"{member} gelmiş, hoş gelmiş.. buyursun..")
     channel = discord.utils.get(member.guild.text_channels, name="hello-bitches")
     await channel.send(f"{member} gelmiş, hoş gelmiş..")
+
 
 @botum.event
 async def on_member_remove(member):
@@ -42,4 +45,10 @@ async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
 
-botum.run("MTIwODUwMzQwNDQzMTgwMjM3OA.G_n4fm.5akdJWpduLPnTpfZA0JKuJV0HWDa7D_JmICmoc")
+@botum.command(aliases=["copy", "kopyala"])
+async def clone_channel(ctx, amount=1):
+    for i in range(amount):
+        await ctx.channel.clone()
+
+
+botum.run(TOKEN)
